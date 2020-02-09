@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .codeInput{
+            outline: none;
+            border: 1px solid #ff69b4;
+            border-radius: 5px;/*text-indent:0.5em;*/
+            padding: 5px;
+        }
+        .codeBtn{
+            outline: none;
+            border: 1px solid #333333;
+            height: 30px;
+            background: green;
+            cursor: pointer;
+            font-family: Arial,宋体;
+            font-style: italic;
+        }
+        .submitBtn{
+            height: 30px;
+            background: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input type="text" class="codeInput" id="codeInput">
+    <button class="codeBtn" id="codeBtn" onclick="createCode()">验证码</button>
+    <button class="submitBtn" onclick="submitCode()">提交</button>
+    <p class="alert" id="alerMsg"></p>
+</div>
+<script>
+    function createCode()
+    {
+        var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        var arr = str.split("");
+        var length = 4;
+        var code = ("");
+        for(var i= 0;i<length;i++)
+        {
+                var index = Math.floor((Math.random()*arr.length));
+                code +=arr [index];
+        }
+        var btn = document.getElementById("codeBtn");
+        btn.innerHTML = code;
+    }
+    //验证
+    function submitCode() {
+        //获取用户输入
+        var codeInput = document.getElementById("codeInput");
+        var inputCode = codeInput.value;
+        //获取当前验证码
+        var codeBtn = document.getElementById("codeBtn");
+        var refreshCode = codeBtn.innerHTML;
+        var alertMsg = document.getElementById("alertMsg");
+        if (inputCode.toLowerCase() == refreshCode.toLowerCase())
+        {
+            alerMsg.innerHTML = "验证成功！";
+        } else {
+            alerMsg.innerHTML = "验证失败，请重新输入！";
+            createCode();
+        }
+    }
+        window.onload=function(){
+            createCode();
+        }
+</script>
+</body>
+</html>
